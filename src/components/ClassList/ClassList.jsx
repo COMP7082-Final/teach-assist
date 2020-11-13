@@ -12,12 +12,9 @@ class ClassList extends React.Component {
             class_list: [],
             instructor: "",
         }
-
-
     }
 
-    componentWillMount() {
-        let classes_ref = db.ref('/classes');
+    componentDidMount() {
         let users_ref = db.ref('/users/' + auth);
 
         users_ref.once('value')
@@ -26,37 +23,50 @@ class ClassList extends React.Component {
             this.setState({instructor: data.fname + " " + data.lname});
         })
 
+        this.getClasses();
+
+    }
+
+    getClasses = ()  => {
+        let classes_ref = db.ref('/classes');
+
         classes_ref.orderByChild('instructor').equalTo(auth).once('value')
         .then((data) => {
-            console.log(data.val());
             let class_list = [];
-            //this.setState({class_list: data.val()})
+
             data.forEach((child) => {
-                console.log(child.key);
-                console.log(child.val())
                 class_list.push(child.val());
             })
             this.setState({class_list: class_list})
-            console.log(class_list);
         })
     }
 
 
-    createClass() {
-        let classes_ref = db.ref('/classes');
+    createClass = () => {
+        const input = {
+            course_num: 1003,
+            dept: "MATH",
+            instructor: auth,
+        }
+        let classes_ref = db.ref('/classes/' + input.dept + input.course_num);
 
-        
+        classes_ref.set({
+            course_num: input.course_num,
+            dept: input.dept,
+            instructor: auth,
+        });
 
+        this.getClasses();
     }
 
     render() {
-        let list = [
-            {id: 1, classname: "COMP 2000", instructor: "Sam Tadey", class_no: 25}, 
-            {id: 2, classname: "COMP 3000", instructor: "Jason", class_no: 23}, 
-            {id: 3, classname: "COMP 4000", instructor: "Lydia", class_no: 23}, 
-            {id: 4, classname: "COMP 4400", instructor: "Lydia", class_no: 23},
-            {id: 5, classname: "COMP 4600", instructor: "Lydia", class_no: 22}
-        ];
+        // let list = [
+        //     {id: 1, classname: "COMP 2000", instructor: "Sam Tadey", class_no: 25}, 
+        //     {id: 2, classname: "COMP 3000", instructor: "Jason", class_no: 23}, 
+        //     {id: 3, classname: "COMP 4000", instructor: "Lydia", class_no: 23}, 
+        //     {id: 4, classname: "COMP 4400", instructor: "Lydia", class_no: 23},
+        //     {id: 5, classname: "COMP 4600", instructor: "Lydia", class_no: 22}
+        // ];
 
         return (
             <div className="classlist_container">
@@ -64,6 +74,7 @@ class ClassList extends React.Component {
                     this.state.class_list.map((item, index) => {
                         return ( 
                             <ClassItem 
+                                key={index}
                                 course_num={item.course_num}
                                 dept={item.dept}
                                 instructor={this.state.instructor}
