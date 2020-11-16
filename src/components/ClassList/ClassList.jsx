@@ -3,6 +3,7 @@ import './ClassList.css';
 import { db } from '../../services/firebase';
 import { ClassItem } from '../../components';
 
+
 let auth = 'tnakamura';
 
 class ClassList extends React.Component {
@@ -38,6 +39,7 @@ class ClassList extends React.Component {
                 class_list.push(child.val());
             })
             this.setState({class_list: class_list})
+            console.log(data.val());
         })
     }
 
@@ -60,13 +62,6 @@ class ClassList extends React.Component {
     }
 
     render() {
-        // let list = [
-        //     {id: 1, classname: "COMP 2000", instructor: "Sam Tadey", class_no: 25}, 
-        //     {id: 2, classname: "COMP 3000", instructor: "Jason", class_no: 23}, 
-        //     {id: 3, classname: "COMP 4000", instructor: "Lydia", class_no: 23}, 
-        //     {id: 4, classname: "COMP 4400", instructor: "Lydia", class_no: 23},
-        //     {id: 5, classname: "COMP 4600", instructor: "Lydia", class_no: 22}
-        // ];
 
         return (
             <div className="classlist_container">
@@ -75,6 +70,7 @@ class ClassList extends React.Component {
                         return ( 
                             <ClassItem 
                                 key={index}
+                                class_id={index}
                                 course_num={item.course_num}
                                 dept={item.dept}
                                 instructor={this.state.instructor}
@@ -85,18 +81,7 @@ class ClassList extends React.Component {
                     : <div/> 
                 }
 
-                {/* {this.state.class_list.map((item, index) => {
-                    return ( 
-                        <ClassItem 
-                            name={item.classname}
-                            dept={item.dept}
-                            instructor={item.instructor}
-                            class_no={item.class_no}
-                        />
-                    )
-                })} */}
-
-                <button onClick={this.createClass}>Create Class</button>
+                <button className="button" onClick={this.createClass}>Create Class</button>
                 
             </div>
         )

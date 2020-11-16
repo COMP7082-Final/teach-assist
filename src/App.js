@@ -1,12 +1,32 @@
-import logo from './logo.svg';
+
 import './App.css';
-import { ClassList, ClassItem } from './components';
-import { auth } from './services/firebase'
+import { ClassList, ClassRoom } from './components';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <ClassList />
+    // can add /classlist/:user_id in future
+  <div className="App">
+    <Router>
+        <Switch>
+
+          <Route 
+            path="/classlist" 
+            component={ClassList}
+          />
+
+          <Route 
+            path="/classroom/:class_id" 
+            component={ClassRoom} 
+          />
+          
+        </Switch>
+      </Router>
+      
     </div>
   );
 }
