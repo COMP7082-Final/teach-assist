@@ -1,7 +1,8 @@
 import React from 'react';
 import './ClassList.css';
 import { db } from '../../services/firebase';
-import { ClassItem } from '../../components';
+import { ClassItem, CreateClassModal } from '../../components';
+import Button from 'react-bootstrap/Button';
 
 
 let auth = 'tnakamura';
@@ -34,28 +35,33 @@ class ClassList extends React.Component {
         classes_ref.orderByChild('instructor').equalTo(auth).once('value')
         .then((data) => {
             let class_list = [];
+            let i = 0;
 
             data.forEach((child) => {
                 class_list.push(child.val());
             })
+
+            //extract class id's
+            Object.keys(data.val()).forEach(key => {
+                console.log(key);
+                class_list[i++]['class_id'] = key;
+            })
+            console.log(class_list);
+
             this.setState({class_list: class_list})
-            console.log(data.val());
         })
     }
 
 
-    createClass = () => {
-        const input = {
-            course_num: 1003,
-            dept: "MATH",
-            instructor: auth,
-        }
-        let classes_ref = db.ref('/classes/' + input.dept + input.course_num);
+    createClass = (c_name, c_code, c_num) => {
+        let classes_ref = db.ref('/classes');
+        console.log(c_name + " " + c_code + " " + c_num);
 
-        classes_ref.set({
-            course_num: input.course_num,
-            dept: input.dept,
-            instructor: auth,
+        classes_ref.push({
+            course_name: c_name,
+            course_num: c_num,
+            dept: c_code,
+            instructor : auth,
         });
 
         this.getClasses();
@@ -70,7 +76,7 @@ class ClassList extends React.Component {
                         return ( 
                             <ClassItem 
                                 key={index}
-                                class_id={index}
+                                class_id={item.class_id}
                                 course_num={item.course_num}
                                 dept={item.dept}
                                 instructor={this.state.instructor}
@@ -81,7 +87,7 @@ class ClassList extends React.Component {
                     : <div/> 
                 }
 
-                <button className="button" onClick={this.createClass}>Create Class</button>
+                <CreateClassModal createClass={this.createClass}/>
                 
             </div>
         )

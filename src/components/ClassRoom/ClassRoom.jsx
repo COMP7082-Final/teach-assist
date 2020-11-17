@@ -1,9 +1,8 @@
 import React from 'react';
 import './ClassRoom.css';
-import { db } from '../../services/firebase';
-import { ClassItem } from '../../components';
+import Button from 'react-bootstrap/Button'
 
-let auth = 'tnakamura';
+//let auth = 'tnakamura';
 
 class ClassRoom extends React.Component {
     constructor(props) {
@@ -26,7 +25,10 @@ class ClassRoom extends React.Component {
     render() {
 
         return (
+            <div>
             <h1>HI THERE THIS IS CLASS: {this.state.id}</h1>
+            <Button variant="success">Success</Button>{' '}
+            </div>
         )
         
     }
