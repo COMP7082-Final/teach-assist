@@ -1,0 +1,18 @@
+.classlist_container {
+    background-color: grey;
+    width: 70%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.button {
+    background-color: aliceblue;
+    margin: 0 auto; 
+    border: none;
+    height: 50px;
+    width: 100%;
+}
+
+.button:hover {
+    background-color: lightgrey;
+}
