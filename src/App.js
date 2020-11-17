@@ -3,7 +3,7 @@ import './App.css';
 
 // import React, {Component} from "react";
 import Chat from "./pages/Chat.js"
-import { ClassList } from './components';
+import { ClassList, ClassRoom } from './components';
 import {
   BrowserRouter as Router,
   Switch,

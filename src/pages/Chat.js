@@ -16,9 +16,11 @@ export default class Chat extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     async componentDidMount() {
+        let class_id = this.props.match.params.class_id;
         this.setState({ readError: null });
         try {
-            db.ref("chats").on("value", snapshot => {
+
+            db.ref("/chats/" + class_id).on("value", snapshot => {
                 let chats = [];
                 snapshot.forEach((snap) => {
                     chats.push(snap.val());
@@ -37,10 +39,11 @@ export default class Chat extends Component {
     }
 
     async handleSubmit(event) {
+        let class_id = this.props.match.params.class_id;
         event.preventDefault();
         this.setState({ writeError: null });
         try {
-            await db.ref("chats").push({
+            await db.ref("/chats/" + class_id).push({
                 content: this.state.content,
                 timestamp: Date.now(),
                 // uid: this.state.user.uid
