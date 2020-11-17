@@ -1,5 +1,8 @@
 
 import './App.css';
+
+import React, {Component} from "react";
+import Chatapp from "./Chat.js"
 import { ClassList, ClassRoom } from './components';
 import {
   BrowserRouter as Router,
@@ -32,4 +35,4 @@ function App() {
   );
 }
 
-export default App;
+
