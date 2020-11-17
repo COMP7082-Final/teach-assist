@@ -1,9 +1,9 @@
 
 import './App.css';
 
-import React, {Component} from "react";
-import Chatapp from "./Chat.js"
-import { ClassList, ClassRoom } from './components';
+// import React, {Component} from "react";
+import Chat from "./pages/Chat.js"
+import { ClassList } from './components';
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,7 +25,7 @@ function App() {
 
           <Route 
             path="/classroom/:class_id" 
-            component={ClassRoom} 
+            component={Chat}
           />
           
         </Switch>
@@ -34,5 +34,7 @@ function App() {
     </div>
   );
 }
+
+export default App;
 
 

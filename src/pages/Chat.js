@@ -43,7 +43,7 @@ export default class Chat extends Component {
             await db.ref("chats").push({
                 content: this.state.content,
                 timestamp: Date.now(),
-                uid: this.state.user.uid
+                // uid: this.state.user.uid
             });
             this.setState({ content: '' });
         } catch (error) {
@@ -66,7 +66,7 @@ export default class Chat extends Component {
                     <button type="submit">Send</button>
                 </form>
                 <div>
-                    Login in as: <strong>{this.state.user.email}</strong>
+                    {/*Login in as: <strong>{this.state.user.email}</strong>*/}
                 </div>
             </div>
         );
