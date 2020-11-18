@@ -10,6 +10,8 @@ import {
   Route,
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from "./pages/Home";
+import React from "react";
 
 function App() {
   return (
@@ -17,16 +19,9 @@ function App() {
   <div className="App">
     <Router>
         <Switch>
-
-          <Route 
-            path="/classlist" 
-            component={ClassList}
-          />
-
-          <Route 
-            path="/classroom/:class_id" 
-            component={Chat}
-          />
+          <Route exact path="/" component={Home}/>
+          <Route path="/classlist" component={ClassList}/>
+          <Route path="/classroom/:class_id" component={Chat}/>
           
         </Switch>
       </Router>
