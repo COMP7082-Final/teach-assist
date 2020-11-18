@@ -1,6 +1,9 @@
 import React from 'react';
 import './ClassRoom.css';
 import Button from 'react-bootstrap/Button'
+import Chat from "../../pages/Chat"
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 //let auth = 'tnakamura';
 
@@ -26,8 +29,15 @@ class ClassRoom extends React.Component {
 
         return (
             <div>
-            <h1>HI THERE THIS IS CLASS: {this.state.id}</h1>
-            <Button variant="success">Success</Button>{' '}
+                <Row>
+                    <Col xs="8">
+                        <h1>HI THERE THIS IS CLASS: {this.state.id}</h1>
+                        <Button variant="success">Success</Button>
+                    </Col>
+                    <Col xs="4">
+                        <Chat props={this.props}/>
+                    </Col>
+                </Row>
             </div>
         )
         
