@@ -1,8 +1,19 @@
 .listitem {
-    background-color: aliceblue;
+    background-color: transparent;
     margin: 0 auto; 
+    border: 1px solid #343a40;
+    margin-bottom: 5px;
 }
 
-.listitem:hover {
-    background-color: lightgrey;
+.listitem * {
+    color: #343a40;
+    text-decoration: none;
+    padding: 4px;
+    margin: 0px;
+}
+
+.listitem:hover * {
+    background-color: #343a40;
+    text-decoration: none;
+    color: white;
 }
