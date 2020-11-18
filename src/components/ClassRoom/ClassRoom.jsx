@@ -1,11 +1,13 @@
 import React from 'react';
 import './ClassRoom.css';
 import Button from 'react-bootstrap/Button'
+import Chat from "../../pages/Chat"
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { ClassMember } from '../../components';
 import { db } from '../../services/firebase';
+
 
 
 let auth = "stadey";
@@ -108,45 +110,52 @@ class ClassRoom extends React.Component {
 
         return (
             <div>
-            <h1>HI THERE THIS IS CLASS: {this.state.id}, USER: {auth}</h1>
-            <Container>
-                {members2d ? 
-                    members2d.map((row) => {
-                            return (
-                                <Row>
-                                {row.map((item, index) => {
-                                    return (
-                                    <Col>
-                                        <ClassMember 
-                                            key={index}
-                                            fname={item.fname}
-                                            lname={item.lname}
-                                        />
-                                    </Col>
+                <Row>
+                    <Col xs="8">
+                        <h1>HI THERE THIS IS CLASS: {this.state.id}, USER: {auth}</h1>
+                        <Container>
+                            {members2d ? 
+                                members2d.map((row) => {
+                                        return (
+                                            <Row>
+                                            {row.map((item, index) => {
+                                                return (
+                                                <Col>
+                                                    <ClassMember 
+                                                        key={index}
+                                                        fname={item.fname}
+                                                        lname={item.lname}
+                                                    />
+                                                </Col>
+                                                )
+                                            })}
+                                            </Row>
+                                        )
+                                })
+                            : <div/>}
+                            {/* {this.state.members ?
+                                this.state.members.map((item, index) => {
+                                    return ( 
+                                        index % 4 == 0 ? <Row> : <div/>
+                                            <Col>
+                                                <ClassMember 
+                                                    key={index}
+                                                    fname={item.fname}
+                                                    lname={item.lname}
+                                                />
+                                            </Col>
+                                        index % 4 == 1 ? </Row> : <div/>
                                     )
-                                })}
-                                </Row>
-                            )
-                    })
-                : <div/>}
-                {/* {this.state.members ?
-                    this.state.members.map((item, index) => {
-                        return ( 
-                            index % 4 == 0 ? <Row> : <div/>
-                                <Col>
-                                    <ClassMember 
-                                        key={index}
-                                        fname={item.fname}
-                                        lname={item.lname}
-                                    />
+                                })
+                                : <div/> 
+                            } */}
+                        </Container>
+                        <Button onClick={() => this.addData()} variant="success">Success</Button>{' '}
                                 </Col>
-                            index % 4 == 1 ? </Row> : <div/>
-                        )
-                    })
-                    : <div/> 
-                } */}
-            </Container>
-            <Button onClick={() => this.addData()} variant="success">Success</Button>{' '}
+                    <Col xs="4">
+                        <Chat props={this.props}/>
+                    </Col>
+                </Row>
             </div>
         )
         

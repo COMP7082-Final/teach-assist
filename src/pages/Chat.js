@@ -17,7 +17,7 @@ export default class Chat extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     async componentDidMount() {
-        let class_id = this.props.match.params.class_id;
+        let class_id = this.props.props.match.params.class_id;
         this.setState({ readError: null });
         try {
 
@@ -40,7 +40,7 @@ export default class Chat extends Component {
     }
 
     async handleSubmit(event) {
-        let class_id = this.props.match.params.class_id;
+        let class_id = this.props.props.match.params.class_id;
         event.preventDefault();
         this.setState({ writeError: null });
         try {
@@ -75,7 +75,7 @@ export default class Chat extends Component {
                 <form className="mx-3"  onSubmit={this.handleSubmit}>
                     <textarea className="form-control" name="content" onChange={this.handleChange} value={this.state.content}/>
                     {this.state.error ? <p>{this.state.writeError}</p> : null}
-                    <button type="submit" className="btn btn-submit px-5 mt-4">Send</button>
+                    <button type="submit" className="btnn btn-submit px-5 mt-4">Send</button>
                 </form>
                 <div className="py-5 mx-3">
                     {/*Test_login in as: <strong>{this.state.user.email}</strong>*/}
