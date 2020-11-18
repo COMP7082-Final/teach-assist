@@ -20,7 +20,7 @@ export default class Chat extends Component {
         this.setState({ readError: null });
         try {
 
-            db.ref("/chats/" + class_id).on("value", snapshot => {
+            db.ref("/classrooms/" + class_id + "/chat_log").on("value", snapshot => {
                 let chats = [];
                 snapshot.forEach((snap) => {
                     chats.push(snap.val());
@@ -43,7 +43,7 @@ export default class Chat extends Component {
         event.preventDefault();
         this.setState({ writeError: null });
         try {
-            await db.ref("/chats/" + class_id).push({
+            await db.ref("/classrooms/" + class_id + "/chat_log").push({
                 content: this.state.content,
                 timestamp: Date.now(),
                 // uid: this.state.user.uid
@@ -69,7 +69,7 @@ export default class Chat extends Component {
                     <button type="submit">Send</button>
                 </form>
                 <div>
-                    {/*Login in as: <strong>{this.state.user.email}</strong>*/}
+                    {/*Test_login in as: <strong>{this.state.user.email}</strong>*/}
                 </div>
             </div>
         );
