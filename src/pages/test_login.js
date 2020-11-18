@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { signin} from "../helpers/auth";
 
-export default class Login extends Component {
+export default class Test_login extends Component {
     constructor(props) {
         super(props);
         this.state = {
