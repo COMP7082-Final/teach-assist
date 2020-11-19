@@ -29,6 +29,13 @@ body {
     text-align: right;
 }
 
+.chat-bubble .full-name {
+    font-size: 12px;
+    color: #757575;
+    text-align: left;
+}
+
+
 .chat-area .chat-bubble.current-user {
     margin-left: auto;
     background-color: #a5d6a7;
