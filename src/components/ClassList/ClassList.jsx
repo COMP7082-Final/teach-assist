@@ -8,7 +8,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 class ClassList extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
+        console.log(this.props, "PROP HERE")
         this.state = {
             class_list: [],
             instructor: "",

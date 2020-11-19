@@ -15,6 +15,7 @@ let auth = "stadey";
 class ClassRoom extends React.Component {
     constructor(props) {
         super(props);
+        console.log(this.props);
         this.state = {
             members: []
         }
@@ -74,15 +75,17 @@ class ClassRoom extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.match.params)
-        {
-            this.setState({id: this.props.match.params.class_id});
-            this.getMembers(this.props.match.params.class_id);
-            console.log("TEST");
+        try {
+            if (this.props.match.params) {
+                this.setState({id: this.props.match.params.class_id});
+                this.getMembers(this.props.match.params.class_id);
+                console.log("TEST");
+            }
         }
-        else 
-        {
+        catch(e) {
             alert("SOMETHING BROKE!");
+            console.log(e);
+            console.log(this.props, "This prop")
         }
     }
 

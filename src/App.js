@@ -25,7 +25,8 @@ function App() {
               <Route path="/resetpassword" component={Reset}/>
               <Route path="/classlist" render={rProps => token === null ? <Login /> : <ClassList />} />
               <Route path="/profile" render={rProps => token === null ? <Login /> : <Profile />} />
-              <Route path="/classroom/:class_id" render={rProps => token === null ? <Login /> : <ClassRoom/>} />
+              {/*<Route path="/classroom/:class_id" render={rProps => token === null ? <Login /> : <ClassRoom />} />*/}
+              <Route path="/classroom/:class_id" component={ClassRoom} />
             </Switch>
         </Router>
     );
