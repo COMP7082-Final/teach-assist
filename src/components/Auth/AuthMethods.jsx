@@ -18,6 +18,7 @@ export const authMethods = {
                 uid: res.user.uid,
                 fname: fname,
                 lname: lname,
+                email: email,
                 role : role,
             });
 
@@ -49,5 +50,19 @@ export const authMethods = {
         firebase.auth().signOut()
         //remove the token
         localStorage.clear('token')
+    },
+
+    reset: (email, setEmailHasBeenSent, setErrors) => {
+        //change from create users to...
+        firebase.auth().sendPasswordResetEmail(email) 
+        //everything is almost exactly the same as the function above
+        .then(() => {
+            setEmailHasBeenSent(true);
+            setTimeout(() => {setEmailHasBeenSent(false)}, 3000);
+            //console.log(setEmailHasBeenSent)
+          })
+        .catch(err => {
+            setErrors(prev => ([...prev, err.message]))
+        })
     },
 }

@@ -7,6 +7,7 @@ const AuthProvider = (props) => {
     const [inputs, setInputs] = useState({email: '', password: ''})
     const [errors, setErrors] = useState([])
     const [token, setToken] = useState(null)
+    const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
 
     const handleSignup = () => {
         console.log(errors, token, inputs)
@@ -27,6 +28,12 @@ const AuthProvider = (props) => {
         authMethods.logout()
         console.log('Logout')
     }
+    
+    const handleReset = () => {
+        authMethods.reset(inputs.email, setEmailHasBeenSent, setErrors)
+        //console.log(setEmailHasBeenSent)
+        console.log('Reset')
+    }
 
     return (
     <firebaseAuth.Provider 
@@ -37,7 +44,8 @@ const AuthProvider = (props) => {
         inputs, 
         setInputs, 
         errors, 
-        handleLogout
+        handleLogout,
+        handleReset
     }}>
         {props.children}
     </firebaseAuth.Provider>
