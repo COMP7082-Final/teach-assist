@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './ClassList.css';
-import { db } from '../../services/firebase';
+import { auth, db } from '../../services/firebase';
 import { ClassItem, CreateClassModal } from '../../components';
 import Button from 'react-bootstrap/Button';
-
-
-let auth = 'tnakamura';
+import Logout from '../Auth/Logout';
+import { BrowserRouter as Router } from "react-router-dom";
 
 class ClassList extends React.Component {
     constructor(props) {
@@ -16,24 +15,34 @@ class ClassList extends React.Component {
         }
     }
 
-    componentDidMount() {
-        let users_ref = db.ref('/users/' + auth);
-
-        users_ref.once('value')
-        .then((data) => {
-            data = data.val();
-            this.setState({instructor: data.fname + " " + data.lname});
+    componentDidMount = () => {
+        console.log(auth.currentUser.uid);
+        var ref = db.ref("users");
+        var query = ref.orderByChild("uid").equalTo(auth.currentUser.uid);
+        query.once("value")
+        .then((snapshot) => {
+            //var key = Object.keys(snapshot.val()); 
+            console.log(Object.keys(snapshot.val()))
+            //this.setState({instructor:snapshot.child("fname").key + " " + snapshot.child("lname").key});
+            var users_ref = db.ref('/users/' + Object.keys(snapshot.val()));
+            users_ref.once('value')
+            .then((data) => {
+                data = data.val();
+                console.log(data);
+                console.log(data.fname + " " + data.lname);
+                this.setState({instructor: data.fname + " " + data.lname});
+                console.log(this.state.instructor);
+            })
         })
-
         this.getClasses();
-
     }
 
     getClasses = ()  => {
         let classes_ref = db.ref('/classes');
-
-        classes_ref.orderByChild('instructor').equalTo(auth).once('value')
+        console.log(this.state.instructor);
+        classes_ref.orderByChild('instructor').equalTo('tnakamura').once('value')
         .then((data) => {
+            console.log(data);
             let class_list = [];
             let i = 0;
 
@@ -56,12 +65,12 @@ class ClassList extends React.Component {
     createClass = (c_name, c_code, c_num) => {
         let classes_ref = db.ref('/classes');
         console.log(c_name + " " + c_code + " " + c_num);
-
+        console.log(this.state.instructor);
         classes_ref.push({
             course_name: c_name,
             course_num: c_num,
             dept: c_code,
-            instructor : auth,
+            instructor : this.state.instructor,
         });
 
         this.getClasses();
@@ -79,7 +88,7 @@ class ClassList extends React.Component {
                                 class_id={item.class_id}
                                 course_num={item.course_num}
                                 dept={item.dept}
-                                instructor={this.state.instructor}
+                                instructor={'tnakamura'}
                                 class_no={item.class_no}
                             />
                         )
@@ -88,7 +97,7 @@ class ClassList extends React.Component {
                 }
 
                 <CreateClassModal createClass={this.createClass}/>
-                
+                <div className="margin-top"><Router><Logout /></Router></div>
             </div>
         )
         
