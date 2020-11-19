@@ -41,7 +41,7 @@ class ClassList extends React.Component {
     getClasses = ()  => {
         let classes_ref = db.ref('/classes');
         console.log(this.state.instructor);
-        classes_ref.orderByChild('instructor').equalTo(auth.currentUser.uid).once('value')
+        classes_ref.orderByChild('instructor').equalTo("Qog0VVN3f2QlTyzl6SESDZjJfj92").once('value')
         .then((data) => {
             console.log(data);
             let class_list = [];
@@ -90,7 +90,7 @@ class ClassList extends React.Component {
                                 class_id={item.class_id}
                                 course_num={item.course_num}
                                 dept={item.dept}
-                                instructor={this.state.instructor}
+                                instructor={"Qog0VVN3f2QlTyzl6SESDZjJfj92"}
                                 class_no={item.class_no}
                             />
                         )
