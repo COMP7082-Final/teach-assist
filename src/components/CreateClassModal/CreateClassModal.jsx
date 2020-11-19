@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Button, Form } from 'react-bootstrap'
 import './CreateClassModal.css';
+import { auth, db } from '../../services/firebase';
 
 
 class CreateClassModal extends React.Component {
@@ -11,7 +12,27 @@ class CreateClassModal extends React.Component {
             c_name: null,
             c_code: null,
             c_num: null,
+            user_name: null,
         }
+    }
+
+    componentDidMount = () => {
+        console.log(auth.currentUser.uid);
+        var ref = db.ref("users");
+        var query = ref.orderByChild("uid").equalTo(auth.currentUser.uid);
+        query.once("value")
+        .then((snapshot) => {
+            console.log(Object.keys(snapshot.val()))
+            var users_ref = db.ref('/users/' + Object.keys(snapshot.val()));
+            users_ref.once('value')
+            .then((data) => {
+                data = data.val();
+                console.log(data.fname + " " + data.lname);
+                this.setState({user_name: data.fname + " " + data.lname});
+                //console.log(this.state.instructor);
+                console.log(this.state.user_name);
+            })
+        })
     }
 
     setModalShow = (bool) => { this.setState({is_visible : bool});}
@@ -35,7 +56,7 @@ class CreateClassModal extends React.Component {
         }
         else 
         {
-            console.log("Somethign is null");
+            console.log("Something is null");
         }
 
     }
@@ -83,7 +104,7 @@ class CreateClassModal extends React.Component {
 
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Instructor</Form.Label>
-                        <Form.Control type="text" value="test" readonly required/>
+                        <Form.Control type="text" value={this.state.user_name} readonly required/>
                     </Form.Group>
 
                 </Form>

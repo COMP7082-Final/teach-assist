@@ -7,8 +7,8 @@ import {
 } from "react-router-dom";
 import Home from './pages/Home';
 import Chat from './pages/Chat';
-import Signup from './pages/test_signup';
-import Test_login from './pages/test_login';
+import Signup from './components/Auth/Signup';
+import Login from './components/Auth/Login';
 import { auth } from './services/firebase.js';
 import logo from "./logo.svg";
 
@@ -66,7 +66,7 @@ export default class Chatapp extends Component {
                     <Route exact path="/" component={Home}/>
                     <PrivateRoute path="/chat" authenticated={this.state.authenticated} component={Chat}/>
                     <PublicRoute path="/signup" authenticated={this.state.authenticated} component={Signup}/>
-                    <PublicRoute path="/login" authenticated={this.state.authenticated} component={Test_login}/>
+                    <PublicRoute path="/login" authenticated={this.state.authenticated} component={Login}/>
                 </Switch>
             </Router>
         );

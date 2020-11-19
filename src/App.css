@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
   background-color: white;
 }
 
@@ -36,4 +35,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.home-margin{
+  margin-top: -60px;
+  padding-top: 0;
+  height: 560px;
+}
+
+.title-margin{
+  margin-top: 40px;
 }

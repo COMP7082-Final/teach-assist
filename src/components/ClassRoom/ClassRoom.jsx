@@ -21,7 +21,7 @@ class ClassRoom extends React.Component {
     }
 
     addData = () => {
-        //let classes_ref = db.ref('/classrooms');
+        // let classes_ref = db.ref('/classrooms/MATH8056');
 
         // classes_ref.set({
         //     chat_log: {},
@@ -29,7 +29,8 @@ class ClassRoom extends React.Component {
         //         tnakamura: true,
         //         stadey: true,
         //         test1: true,
-        //         test3: true,
+        //         test2: true,
+        //         MMOVNpo7siOq0iTv2re: true,
         //     }                
         // });
     }
@@ -41,7 +42,7 @@ class ClassRoom extends React.Component {
         let classroom = db.ref('/classrooms/' + class_id);
         let users = db.ref('/users');
         console.log(class_id);
-        console.log(classroom);
+        //console.log(classroom);
 
         classroom.orderByChild("members").once('value')
         .then((data) => {
@@ -60,9 +61,9 @@ class ClassRoom extends React.Component {
                         if (data.val())
                         {
                             members.push(data.val());
-                            console.log(members);
+                            //console.log(members);
                             this.setState({members: members});
-                            console.log(this.state.members);
+                            //console.log(this.state.members);
                         }
                         
                     })
@@ -106,13 +107,12 @@ class ClassRoom extends React.Component {
         }
         console.log(members2d);
 
-        //let members2d = [[1,2,3,4], [5,6,7,8], [9, 10]];
 
         return (
             <div>
                 <Row>
                     <Col xs="8">
-                        <h1>HI THERE THIS IS CLASS: {this.state.id}, USER: {auth}</h1>
+                        <h1>THIS IS CLASS: {this.state.id}, USER: {auth}</h1>
                         <Container>
                             {members2d ? 
                                 members2d.map((row) => {
@@ -133,22 +133,6 @@ class ClassRoom extends React.Component {
                                         )
                                 })
                             : <div/>}
-                            {/* {this.state.members ?
-                                this.state.members.map((item, index) => {
-                                    return ( 
-                                        index % 4 == 0 ? <Row> : <div/>
-                                            <Col>
-                                                <ClassMember 
-                                                    key={index}
-                                                    fname={item.fname}
-                                                    lname={item.lname}
-                                                />
-                                            </Col>
-                                        index % 4 == 1 ? </Row> : <div/>
-                                    )
-                                })
-                                : <div/> 
-                            } */}
                         </Container>
                         <Button onClick={() => this.addData()} variant="success">Success</Button>{' '}
                                 </Col>
