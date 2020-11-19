@@ -1,6 +1,7 @@
 import React from 'react';
 import './ClassMember.css';
-import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
+
 
 class ClassMember extends React.Component {
     constructor(props) {
@@ -23,8 +24,13 @@ class ClassMember extends React.Component {
 
         return (
             <div className="member_container">
-                <h2>{this.props.fname} {this.props.lname}</h2>
-                <h2>NAME HERE</h2>
+                <Card>
+                    <Card.Img variant="top" src={process.env.PUBLIC_URL + "/PersonPlaceholder.png"} />
+                    <Card.Body>
+                        <Card.Title>{this.props.fname}</Card.Title>
+                        <Card.Title>{this.props.lname}</Card.Title>
+                    </Card.Body>
+                </Card>
             </div>
         )
         
