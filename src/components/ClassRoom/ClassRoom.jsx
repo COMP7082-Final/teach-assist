@@ -6,11 +6,8 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { ClassMember } from '../../components';
-import { db } from '../../services/firebase';
+import { db , auth } from '../../services/firebase';
 
-
-
-let auth = "stadey";
 
 class ClassRoom extends React.Component {
     constructor(props) {
@@ -115,7 +112,7 @@ class ClassRoom extends React.Component {
             <div>
                 <Row>
                     <Col xs="8">
-                        <h1>THIS IS CLASS: {this.state.id}, USER: {auth}</h1>
+                        <h1>THIS IS CLASS: {this.state.id}, USER: {auth.currentUser.uid}</h1>
                         <Container>
                             {members2d ? 
                                 members2d.map((row) => {
