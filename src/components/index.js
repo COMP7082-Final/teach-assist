@@ -4,5 +4,5 @@ export { default as ClassList } from './ClassList/ClassList';
 export { default as ClassMember } from './ClassMember/ClassMember';
 export { default as ClassRoom } from './ClassRoom/ClassRoom';
 export { default as CreateClassModal } from './CreateClassModal/CreateClassModal';
-
+export { default as AddClassModal } from './AddClassModal/AddClassModal';
 

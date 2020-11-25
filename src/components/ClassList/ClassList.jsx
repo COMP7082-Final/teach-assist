@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import './ClassList.css';
 import { auth, db } from '../../services/firebase';
-import { ClassItem, CreateClassModal } from '../../components';
+import { ClassItem, CreateClassModal, AddClassModal } from '../../components';
 import Logout from '../Auth/Logout';
 import { BrowserRouter as Router } from "react-router-dom";
 
@@ -11,6 +11,8 @@ class ClassList extends React.Component {
         this.state = {
             class_list: [],
             instructor: "",
+            role: 0,
+            user_key: 0,
         }
     }
 
@@ -21,20 +23,25 @@ class ClassList extends React.Component {
         var query = ref.orderByChild("uid").equalTo(auth.currentUser.uid);
         query.once("value")
         .then((snapshot) => {
-            //var key = Object.keys(snapshot.val()); 
-            console.log(Object.keys(snapshot.val()))
-            //this.setState({instructor:snapshot.child("fname").key + " " + snapshot.child("lname").key});
+            var key = Object.keys(snapshot.val()); 
+            console.log(snapshot.val().key)
+            //this.setState({current_user: Object.keys(snapshot.val().snapshot.val())});
+            console.log(this.state.current_user);
             var users_ref = db.ref('/users/' + Object.keys(snapshot.val()));
             users_ref.once('value')
             .then((data) => {
                 data = data.val();
-                console.log(data);
-                console.log(data.fname + " " + data.lname);
-                this.setState({instructor: data.fname + " " + data.lname});
+                console.log(auth.currentUser);
+                this.setState({
+                    instructor: data.fname + " " + data.lname,
+                    role: data.role,
+                    user_key : Object.keys(snapshot.val())
+                });
                 console.log(this.state.instructor);
             })
         })
         this.getClasses();
+
     }
 
     getClasses = ()  => {
@@ -50,11 +57,14 @@ class ClassList extends React.Component {
                 class_list.push(child.val());
             })
 
-            //extract class id's
-            Object.keys(data.val()).forEach(key => {
-                console.log(key);
-                class_list[i++]['class_id'] = key;
-            })
+            if (data.val())
+            {
+                //extract class id's
+                Object.keys(data.val()).forEach(key => {
+                    console.log(key);
+                    class_list[i++]['class_id'] = key;
+                })
+            }
             console.log(class_list);
 
             this.setState({class_list: class_list})
@@ -72,6 +82,19 @@ class ClassList extends React.Component {
             course_num: c_num,
             dept: c_code,
             instructor : auth.currentUser.uid,
+        });
+
+        this.getClasses();
+    }
+
+    addClass = (code) => {
+        let classes_ref = db.ref('/classes');
+        classes_ref.orderByChild('code').equalTo(code).once('value')
+        .then((data) => {
+            let classrooms = db.ref('/classrooms/' + Object.keys(data.val()) + "/members");
+            console.log(Object.keys(data.val()));
+
+            classrooms.child(`${this.state.user_key}`).set(true);
         });
 
         this.getClasses();
@@ -97,8 +120,15 @@ class ClassList extends React.Component {
                     : <div/> 
                 }
 
-                <CreateClassModal createClass={this.createClass}/>
+                {this.state.role == 1 ? 
+                    <CreateClassModal createClass={this.createClass}/>
+                :  this.state.role == 2 ? 
+                    <AddClassModal addClass={this.addClass}/>
+                : <div/>
+                }
+
                 <div className="margin-top"><Router><Logout /></Router></div>
+                
             </div>
         )
         
