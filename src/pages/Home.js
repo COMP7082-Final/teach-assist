@@ -15,7 +15,7 @@ const Home = () => {
                         <h1 className="display-4 title-margin">Welcome to Teach-Assist</h1>
                         <p className="lead">Assistant application for classroom environments</p>
                         <div className="mt-4">
-                            <Link className="btn btn-primary px-5 mr-3" to="/profile">Profile</Link>
+                            <Link className="btn btn-primary px-5 mr-3 classlist" to="/profile">Profile</Link>
                             <Link className="btn btn-primary px-5 mr-3" to="/classlist">Class List</Link>
                             <Router><Logout /></Router>
                         </div>

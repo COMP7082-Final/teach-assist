@@ -18,11 +18,12 @@ export default class Chat extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     async componentDidMount() {
+        let class_id;
         try{
-            let class_id = this.props.props.match.params.class_id;
+            class_id = this.props.props.match.params.class_id;
         } catch {
             // For testing purposes
-            let class_id = "MATH8056"
+            class_id = "MATH8056"
         }
 
         this.setState({ readError: null });
@@ -97,7 +98,7 @@ export default class Chat extends Component {
                     })}
                 </div>
                 {/*{# message form #}*/}
-                <form className="mx-3"  onSubmit={this.handleSubmit}>
+                <form className="chat-input mx-3"  onSubmit={this.handleSubmit}>
                     <textarea className="form-control" name="content" onChange={this.handleChange} value={this.state.content}/>
                     {this.state.error ? <p>{this.state.writeError}</p> : null}
                     <button type="submit" className="btnn btn-submit px-5 mt-4">Send</button>

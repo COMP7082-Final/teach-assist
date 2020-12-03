@@ -111,7 +111,7 @@ class CreateClassModal extends React.Component {
 
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={() => this.submitClass(this.state.c_name, this.state.c_code, this.state.c_num)}>Submit</Button>
+                    <Button id="m_sub" variant="primary" onClick={() => this.submitClass(this.state.c_name, this.state.c_code, this.state.c_num)}>Submit</Button>
                     <Button variant="danger" onClick={() => this.setModalShow(false)}>Close</Button>
                 </Modal.Footer>
         

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import './ClassList.css';
 import { auth, db } from '../../services/firebase';
 import { ClassItem, CreateClassModal } from '../../components';
@@ -38,6 +38,16 @@ class ClassList extends React.Component {
         this.getClasses();
     }
 
+    makeid = (length) => {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+           result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+     }
+
     getClasses = ()  => {
         let classes_ref = db.ref('/classes');
         console.log(this.state.instructor);
@@ -66,6 +76,9 @@ class ClassList extends React.Component {
     //this function has to create classroom with the corresponding id as well
     createClass = (c_name, c_code, c_num) => {
         let classes_ref = db.ref('/classes');
+        let room_ref = db.ref('/classrooms');
+        let class_id = this.makeid(15);
+
         console.log(c_name + " " + c_code + " " + c_num);
         console.log(this.state.instructor);
         classes_ref.push({
@@ -73,7 +86,16 @@ class ClassList extends React.Component {
             course_num: c_num,
             dept: c_code,
             instructor : auth.currentUser.uid,
+            class_id : class_id,
         });
+
+        //create classroom
+        room_ref.push({
+            class_id: class_id,
+            members: {
+                user: auth.currentUser.uid,
+            }
+        })
 
         this.getClasses();
     }
@@ -81,7 +103,9 @@ class ClassList extends React.Component {
     render() {
 
         return (
+            
             <div className="classlist_container">
+                <h1>Class List</h1>
                 {this.state.class_list ? 
                     this.state.class_list.map((item, index) => {
                         return ( 
@@ -98,7 +122,7 @@ class ClassList extends React.Component {
                     : <div/> 
                 }
 
-                <CreateClassModal createClass={this.createClass}/>
+                <CreateClassModal className="modal" createClass={this.createClass}/>
                 <div className="margin-top"><Router><Logout /></Router></div>
             </div>
         )

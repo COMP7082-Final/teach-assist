@@ -109,10 +109,10 @@ class ClassRoom extends React.Component {
 
 
         return (
-            <div>
+            <div className="Classroom">
                 <Row>
                     <Col xs="8">
-                        <h1>THIS IS CLASS: {this.state.id}, USER: {auth.currentUser.uid}</h1>
+                        <h1 id = "test">THIS IS CLASS: {this.state.id}</h1>
                         <Container>
                             {members2d ? 
                                 members2d.map((row) => {

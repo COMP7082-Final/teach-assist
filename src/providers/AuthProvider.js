@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { authMethods } from '../components/Auth/AuthMethods'
-
+import PropTypes from 'prop-types';
 export const firebaseAuth = React.createContext()
 
 const AuthProvider = (props) => {
     const [inputs, setInputs] = useState({email: '', password: ''})
     const [errors, setErrors] = useState([])
     const [token, setToken] = useState(null)
-    const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
+    const [setEmailHasBeenSent] = useState(false);
 
     const handleSignup = () => {
         console.log(errors, token, inputs)
@@ -51,6 +51,10 @@ const AuthProvider = (props) => {
     </firebaseAuth.Provider>
     );
 };
+
+AuthProvider.propTypes = {
+    children: PropTypes.Object,
+  };
   
   
 export default AuthProvider;

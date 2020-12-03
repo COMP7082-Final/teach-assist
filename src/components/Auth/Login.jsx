@@ -50,11 +50,11 @@ const Login = () => {
                         <button className="btn btn-primary px-5 mr-3" type="submit">
                             Login
                         </button>
-                        {errors.length > 0 ? errors.map(error => <p style={{color: 'red'}}>{error}</p> ) : null}
+                        {errors.length > 0 ? errors.map(error => <p key={error} style={{color: 'red'}}>{error}</p> ) : null}
                     </div>
                     <p><Link to="/resetpassword">Forgot Password?</Link></p>
                     <hr />
-                    <p>Don't have an account? <Link to="/signup">Sign up here</Link></p>
+                    <p>Don{`&apos`}t have an account? <Link to="/signup">Sign up here</Link></p>
                 </form>
             </div>
         </div>

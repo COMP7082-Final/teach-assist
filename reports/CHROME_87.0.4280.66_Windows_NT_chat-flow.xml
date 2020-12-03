@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="7">
+
+  <testsuite name="chat-flow"
+    errors="0" failures="0" hostname="" id="" package="chat-flow" skipped="0"
+    tests="7" time="3.152" timestamp="">
+  
+    <testcase name="get to login page" classname="chat-flow" time="0.7770" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="get to sign up page from login page" classname="chat-flow" time="0.07700" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="get to login page from sign up page" classname="chat-flow" time="0.07100" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="logging in" classname="chat-flow" time="1.327" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="get to classroom page" classname="chat-flow" time="0.6770" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="verify chat dialogue" classname="chat-flow" time="0.2230" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="close" classname="chat-flow" time="0.000" assertions="0">
+    </testcase>
+  
+
+  
+
+    
+
+  
+  </testsuite>
+</testsuites>
