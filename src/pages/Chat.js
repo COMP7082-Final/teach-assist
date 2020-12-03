@@ -20,38 +20,67 @@ export default class Chat extends Component {
     async componentDidMount() {
         try{
             let class_id = this.props.props.match.params.class_id;
+
+            this.setState({ readError: null });
+            try {
+                db.ref("/classrooms/" + class_id + "/chat_log").on("value", snapshot => {
+                    let chats = [];
+                    snapshot.forEach((snap) => {
+                        chats.push(snap.val());
+                    });
+
+                    this.setState({ chats });
+                });
+            } catch (error) {
+                this.setState({ readError: error.message });
+            }
+
+            try {
+                db.ref("/users").on("value", snapshot => {
+                    let full_name = null;
+                    snapshot.forEach((snap) => {
+                        if(snap.val().uid === this.state.user.uid){
+                            full_name = snap.val().fname + " " + snap.val().lname;
+                        }
+                    });
+
+                    this.setState({ full_name }, () => console.log(this.state.full_name));
+                });
+            } catch (error) {
+                this.setState({ readError: error.message });
+            }
         } catch {
             // For testing purposes
-            let class_id = "MATH8056"
-        }
+            let class_id = "MATH8056";
 
-        this.setState({ readError: null });
-        try {
-            db.ref("/classrooms/" + class_id + "/chat_log").on("value", snapshot => {
-                let chats = [];
-                snapshot.forEach((snap) => {
-                    chats.push(snap.val());
+            this.setState({ readError: null });
+            try {
+                db.ref("/classrooms/" + class_id + "/chat_log").on("value", snapshot => {
+                    let chats = [];
+                    snapshot.forEach((snap) => {
+                        chats.push(snap.val());
+                    });
+
+                    this.setState({ chats });
                 });
+            } catch (error) {
+                this.setState({ readError: error.message });
+            }
 
-                this.setState({ chats });
-            });
-        } catch (error) {
-            this.setState({ readError: error.message });
-        }
+            try {
+                db.ref("/users").on("value", snapshot => {
+                    let full_name = null;
+                    snapshot.forEach((snap) => {
+                        if(snap.val().uid === this.state.user.uid){
+                            full_name = snap.val().fname + " " + snap.val().lname;
+                        }
+                    });
 
-        try {
-            db.ref("/users").on("value", snapshot => {
-                let full_name = null;
-                snapshot.forEach((snap) => {
-                    if(snap.val().uid === this.state.user.uid){
-                        full_name = snap.val().fname + " " + snap.val().lname;
-                    }
+                    this.setState({ full_name }, () => console.log(this.state.full_name));
                 });
-
-                this.setState({ full_name }, () => console.log(this.state.full_name));
-            });
-        } catch (error) {
-            this.setState({ readError: error.message });
+            } catch (error) {
+                this.setState({ readError: error.message });
+            }
         }
     }
 
