@@ -18,7 +18,13 @@ export default class Chat extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     async componentDidMount() {
-        let class_id = this.props.props.match.params.class_id;
+        try{
+            let class_id = this.props.props.match.params.class_id;
+        } catch {
+            // For testing purposes
+            let class_id = "MATH8056"
+        }
+
         this.setState({ readError: null });
         try {
             db.ref("/classrooms/" + class_id + "/chat_log").on("value", snapshot => {
