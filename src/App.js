@@ -43,7 +43,13 @@ function PublicRoute({ component: Component, authenticated, ...rest }) {
 }
 
 function App() {
-    const { token } = useContext(firebaseAuth);
+    const token = null;
+    try {
+        const { token } = useContext(firebaseAuth);
+    }
+    catch(err) {
+        const token = null
+    }
     
     return (
         <Router>

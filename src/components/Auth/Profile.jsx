@@ -105,4 +105,4 @@ class Profile extends React.Component {
     }
 }
  
-export default withRouter(Profile);
+export default Profile;
