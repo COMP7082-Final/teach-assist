@@ -8,6 +8,7 @@ export default class Chat extends Component {
         super(props);
         this.state = {
             user: auth.currentUser,
+            full_name: null,
             chats: [],
             content: '',
             readError: null,
@@ -17,16 +18,37 @@ export default class Chat extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     async componentDidMount() {
-        let class_id = this.props.props.match.params.class_id;
+        try{
+            let class_id = this.props.props.match.params.class_id;
+        } catch {
+            // For testing purposes
+            let class_id = "MATH8056"
+        }
+
         this.setState({ readError: null });
         try {
-
             db.ref("/classrooms/" + class_id + "/chat_log").on("value", snapshot => {
                 let chats = [];
                 snapshot.forEach((snap) => {
                     chats.push(snap.val());
                 });
+
                 this.setState({ chats });
+            });
+        } catch (error) {
+            this.setState({ readError: error.message });
+        }
+
+        try {
+            db.ref("/users").on("value", snapshot => {
+                let full_name = null;
+                snapshot.forEach((snap) => {
+                    if(snap.val().uid === this.state.user.uid){
+                        full_name = snap.val().fname + " " + snap.val().lname;
+                    }
+                });
+
+                this.setState({ full_name }, () => console.log(this.state.full_name));
             });
         } catch (error) {
             this.setState({ readError: error.message });
@@ -47,7 +69,8 @@ export default class Chat extends Component {
             await db.ref("/classrooms/" + class_id + "/chat_log").push({
                 content: this.state.content,
                 timestamp: Date.now(),
-                // uid: this.state.user.uid
+                uid: this.state.user.uid,
+                name: this.state.full_name
             });
             this.setState({ content: '' });
         } catch (error) {
@@ -65,8 +88,10 @@ export default class Chat extends Component {
             <div>
                 <div className="chat-area">
                     {this.state.chats.map(chat => {
-                        return <p key={chat.timestamp} className={"chat-bubble"}>{chat.content}
+                        return <p key={chat.timestamp} className={"chat-bubble " + (this.state.user.uid === chat.uid ? "current-user" : "")}>
+                            {chat.content}
                             <br />
+                            <span className="full-name float-left">{chat.name}</span>
                             <span className="chat-time float-right">{this.formatTime(chat.timestamp)}</span>
                         </p>
                     })}

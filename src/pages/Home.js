@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {firebaseAuth} from '../providers/AuthProvider'
 import { Link } from 'react-router-dom';
 import Logout from '../components/Auth/Logout';
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, withRouter } from "react-router-dom";
 
 const Home = () => {
 
@@ -27,4 +27,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default withRouter(Home);

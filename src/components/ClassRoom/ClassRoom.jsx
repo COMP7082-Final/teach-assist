@@ -6,15 +6,13 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { ClassMember } from '../../components';
-import { db } from '../../services/firebase';
+import { db , auth } from '../../services/firebase';
 
-
-
-let auth = "stadey";
 
 class ClassRoom extends React.Component {
     constructor(props) {
         super(props);
+        console.log(this.props);
         this.state = {
             members: []
         }
@@ -74,15 +72,17 @@ class ClassRoom extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.match.params)
-        {
-            this.setState({id: this.props.match.params.class_id});
-            this.getMembers(this.props.match.params.class_id);
-            console.log("TEST");
+        try {
+            if (this.props.match.params) {
+                this.setState({id: this.props.match.params.class_id});
+                this.getMembers(this.props.match.params.class_id);
+                console.log("TEST");
+            }
         }
-        else 
-        {
+        catch(e) {
             alert("SOMETHING BROKE!");
+            console.log(e);
+            console.log(this.props, "This prop")
         }
     }
 
@@ -112,7 +112,7 @@ class ClassRoom extends React.Component {
             <div>
                 <Row>
                     <Col xs="8">
-                        <h1>THIS IS CLASS: {this.state.id}, USER: {auth}</h1>
+                        <h1>THIS IS CLASS: {this.state.id}, USER: {auth.currentUser.uid}</h1>
                         <Container>
                             {members2d ? 
                                 members2d.map((row) => {

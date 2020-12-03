@@ -1,7 +1,6 @@
 import './App.css';
-import Chat from "./pages/Chat.js"
 import { ClassList, ClassRoom} from './components';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./pages/Home";
 import Signup from './components/Auth/Signup';
@@ -11,21 +10,57 @@ import Reset from './components/Auth/PassReset';
 import React, { useContext } from "react";
 import {firebaseAuth} from './providers/AuthProvider'
 
+function PrivateRoute({ component: Component, authenticated, ...rest }) {
+    return (
+        <Route
+            {...rest}
+            render={props =>
+                authenticated === null ? (
+                    <Redirect
+                        to={{ pathname: "/login", state: { from: props.location } }}
+                    />
+                ) : (
+                    <Component {...props} />
+                )
+            }
+        />
+    );
+}
+
+function PublicRoute({ component: Component, authenticated, ...rest }) {
+    return (
+        <Route
+            {...rest}
+            render={props =>
+                authenticated === null ? (
+                    <Component {...props} />
+                ) : (
+                    <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+                )
+            }
+        />
+    );
+}
+
 function App() {
-    const { handleSignup } = useContext( firebaseAuth )
-    const { token } = useContext(firebaseAuth)
+    const token = null;
+    try {
+        const { token } = useContext(firebaseAuth);
+    }
+    catch(err) {
+        const token = null
+    }
     
     return (
-        // can add /classlist/:user_id in future
         <Router>
             <Switch>
-              <Route exact path="/" render={rProps => token === null ? <Login /> : <Home />} />
-              <Route path="/login" component={Login}/>
-              <Route path="/signup" component={Signup}/>
-              <Route path="/resetpassword" component={Reset}/>
-              <Route path="/classlist" render={rProps => token === null ? <Login /> : <ClassList />} />
-              <Route path="/profile" render={rProps => token === null ? <Login /> : <Profile />} />
-              <Route path="/classroom/:class_id" render={rProps => token === null ? <Login /> : <ClassRoom/>} />
+              <PublicRoute path="/login" authenticated={token} component={Login}/>
+              <PublicRoute path="/signup" authenticated={token} component={Signup}/>
+              <PublicRoute path="/resetpassword" authenticated={token} component={Reset}/>
+              <PrivateRoute path="/classroom/:class_id" authenticated={token} component={ClassRoom} />
+              <PrivateRoute path="/classlist" authenticated={token} component={ClassList} />
+              <PrivateRoute path="/profile" authenticated={token} component={Profile} />
+              <PrivateRoute path="/" authenticated={token} component={Home} />
             </Switch>
         </Router>
     );
