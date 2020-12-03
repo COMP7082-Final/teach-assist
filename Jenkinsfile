@@ -6,6 +6,7 @@ pipeline {
             steps {
                 nodejs('node'){
                    sh 'npm config ls -l'
+                   sh 'npm install'
                 }
             }
         }
