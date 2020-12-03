@@ -16,7 +16,8 @@ pipeline {
         stage("Test") {
             steps {
                 script {
-                  sh 'npm run test'
+                    sh 'npm install --save react react-dom react-scripts'
+                    sh 'npm run test'
                 }
             }
         }
