@@ -2,13 +2,13 @@ import React, {useContext} from 'react';
 import './ClassList.css';
 import { auth, db } from '../../services/firebase';
 import { ClassItem, CreateClassModal } from '../../components';
+import Button from 'react-bootstrap/Button';
 import Logout from '../Auth/Logout';
 import { BrowserRouter as Router } from "react-router-dom";
 
 class ClassList extends React.Component {
     constructor(props) {
-        super(props)
-        console.log(this.props, "PROP HERE")
+        super(props);
         this.state = {
             class_list: [],
             instructor: "",
@@ -18,7 +18,6 @@ class ClassList extends React.Component {
     componentDidMount = () => {
         console.log(auth.currentUser.uid);
         var ref = db.ref("users");
-        //var query = ref.orderByChild("uid").equalTo(auth.currentUser.uid);
         var query = ref.orderByChild("uid").equalTo(auth.currentUser.uid);
         query.once("value")
         .then((snapshot) => {
@@ -41,7 +40,7 @@ class ClassList extends React.Component {
     getClasses = ()  => {
         let classes_ref = db.ref('/classes');
         console.log(this.state.instructor);
-        classes_ref.orderByChild('instructor').equalTo("Qog0VVN3f2QlTyzl6SESDZjJfj92").once('value')
+        classes_ref.orderByChild('instructor').equalTo('tnakamura').once('value')
         .then((data) => {
             console.log(data);
             let class_list = [];
@@ -63,7 +62,6 @@ class ClassList extends React.Component {
     }
 
 
-    //this function has to create classroom with the corresponding id as well
     createClass = (c_name, c_code, c_num) => {
         let classes_ref = db.ref('/classes');
         console.log(c_name + " " + c_code + " " + c_num);
@@ -72,7 +70,7 @@ class ClassList extends React.Component {
             course_name: c_name,
             course_num: c_num,
             dept: c_code,
-            instructor : auth.currentUser.uid,
+            instructor : this.state.instructor,
         });
 
         this.getClasses();
@@ -90,7 +88,7 @@ class ClassList extends React.Component {
                                 class_id={item.class_id}
                                 course_num={item.course_num}
                                 dept={item.dept}
-                                instructor={"Qog0VVN3f2QlTyzl6SESDZjJfj92"}
+                                instructor={'tnakamura'}
                                 class_no={item.class_no}
                             />
                         )

@@ -4,7 +4,7 @@ import { auth, db } from '../../services/firebase';
 import { ClassItem, CreateClassModal } from '../../components';
 import Logout from '../Auth/Logout';
 import { BrowserRouter as Router } from "react-router-dom";
-import { Link, withRouter} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 //let key = "";
 class Profile extends React.Component {
