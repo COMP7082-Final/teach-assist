@@ -26,12 +26,7 @@ class Profile extends React.Component {
         .then((snapshot) => {
             console.log(Object.keys(snapshot.val()))
             var key = Object.keys(snapshot.val());
-        
-        //this.getProfile();
-    //}
 
-    //getProfile = ()  => {
-       // console.log(key);
         var users_ref = db.ref('/users/' + key);
         var userRole = "";
         users_ref.once('value')

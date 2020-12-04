@@ -11,16 +11,13 @@ const AuthProvider = (props) => {
 
     const handleSignup = () => {
         console.log(errors, token, inputs)
-        // calling signup from firebase server
         authMethods.signup(inputs.email, inputs.password, inputs.role, 
             inputs.fname, inputs.lname, setErrors, setToken)
     }
 
     const handleLogin = () => {
-        //changed to handleSingin
         console.log('Login')
         console.log(errors, token)
-        // made signup signin
         authMethods.login(inputs.email, inputs.password, setErrors, setToken)
       }
 
@@ -31,7 +28,6 @@ const AuthProvider = (props) => {
     
     const handleReset = () => {
         authMethods.reset(inputs.email, setEmailHasBeenSent, setErrors)
-        //console.log(setEmailHasBeenSent)
         console.log('Reset')
     }
 

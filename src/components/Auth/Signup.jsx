@@ -11,9 +11,7 @@ const Signup = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         console.log('handleSubmit')
-        //wait to signup 
         await handleSignup()
-        //push home
         props.history.push('/')
     }
 

@@ -2,7 +2,6 @@ import { db } from '../../services/firebase';
 import firebase from 'firebase';
 
 export const authMethods = {
-    // firebase helper methods go here... 
     signup: (email, password, role, fname, lname, setErrors, setToken) => {
         firebase.auth().createUserWithEmailAndPassword(email,password) 
         .then ( async res => {
@@ -29,12 +28,9 @@ export const authMethods = {
     },
 
     login: (email, password, setErrors, setToken) => {
-        //change from create users to...
         firebase.auth().signInWithEmailAndPassword(email,password) 
-        //everything is almost exactly the same as the function above
         .then( async res => {
             const token = await Object.entries(res.user)[5][1].b
-            //set token to localStorage 
             await localStorage.setItem('token', token)
             setToken( window.localStorage.token )
             console.log(res)
@@ -46,20 +42,15 @@ export const authMethods = {
 
     logout: () => {
         console.log('logout')
-        // signOut is a no argument function
         firebase.auth().signOut()
-        //remove the token
         localStorage.clear('token')
     },
 
     reset: (email, setEmailHasBeenSent, setErrors) => {
-        //change from create users to...
         firebase.auth().sendPasswordResetEmail(email) 
-        //everything is almost exactly the same as the function above
         .then(() => {
             setEmailHasBeenSent(true);
             setTimeout(() => {setEmailHasBeenSent(false)}, 3000);
-            //console.log(setEmailHasBeenSent)
           })
         .catch(err => {
             setErrors(prev => ([...prev, err.message]))
