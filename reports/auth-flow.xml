@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="0">
+
+  <testsuite name="auth-flow"
+    errors="1" failures="0" hostname="" id="" package="auth-flow" skipped="4"
+    tests="0" time="0.000" timestamp="">
+  
+
+  
+    <system-err>
+        Error: An error occurred while retrieving a new session: &#34;Unable to create new service: ChromeDriverService&#34;
+       at endReadableNT (_stream_readable.js:1145:12)
+    </system-err>
+  
+
+    
+    <error message="An error occurred while retrieving a new session: &#34;Unable to create new service: ChromeDriverService&#34;"><![CDATA[
+      Error: An error occurred while retrieving a new session: &#34;Unable to create new service: ChromeDriverService&#34;
+    at Selenium2Protocol.handleSessionCreateError (C:\Users\soukc\AppData\Roaming\npm\node_modules\nightwatch\lib\transport\transport.js:103:15)
+    at HttpRequest.request.on.err (C:\Users\soukc\AppData\Roaming\npm\node_modules\nightwatch\lib\transport\transport.js:159:32)
+    at HttpRequest.emit (events.js:198:13)
+    at HttpResponse.originalIssuer.on.args (C:\Users\soukc\AppData\Roaming\npm\node_modules\nightwatch\lib\http\request.js:142:19)
+    at HttpResponse.emit (events.js:198:13)
+    at IncomingMessage.res.on (C:\Users\soukc\AppData\Roaming\npm\node_modules\nightwatch\lib\http\response.js:60:14)
+    at IncomingMessage.emit (events.js:203:15)
+    at endReadableNT (_stream_readable.js:1145:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+      ]]></error>  
+
+  
+    
+    <testcase
+      name="get to login page" classname="auth-flow">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="logging in" classname="auth-flow">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="logging out" classname="auth-flow">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="close" classname="auth-flow">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

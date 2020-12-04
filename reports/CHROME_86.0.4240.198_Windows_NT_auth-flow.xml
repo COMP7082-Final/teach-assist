@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="9">
+
+  <testsuite name="auth-flow"
+    errors="0" failures="1" hostname="" id="" package="auth-flow" skipped="1"
+    tests="9" time="11.35" timestamp="">
+  
+    <testcase name="get to login page" classname="auth-flow" time="2.696" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="get to sign up page from login page" classname="auth-flow" time="0.3850" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="get to login page from sign up page" classname="auth-flow" time="0.3010" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="logging in" classname="auth-flow" time="2.052" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="get to profile page from home page" classname="auth-flow" time="0.2700" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="get to login page by signing out" classname="auth-flow" time="1.255" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="get to classlist page from login page" classname="auth-flow" time="1.882" assertions="0">
+    </testcase>
+  
+    <testcase name="get to classroom page" classname="auth-flow" time="1.638" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="verify chat dialogue" classname="auth-flow" time="0.8720" assertions="1">  <failure message="Failed [equal]: (&#39;Heyo!\nJason Soukchamroeun\n19/11/2020 13:41\nhey professor I have a question about the upcoming assignment, can you answer ... == &#39;Automated Test&#39;) - expected &#34;Automated Test&#34; but got: &#34;Heyo!
+Jason Soukchamroeun
+19/11/2020 13:41
+hey professor I have a question about the upcoming assignment, can you answer it?
+Jason Soukchamroeun
+19/11/2020 13:42
+Yes I can! What can I help with?
+Takashi Nakamura
+19/11/2020 13:43
+
+Jason Soukchamroeun
+3/12/2020 13:59
+Automated Test.
+Jason Soukchamroeun
+3/12/2020 14:17&#34; (0ms)">    at NightwatchAPI.&lt;anonymous&gt; (C:\Users\soukc\Desktop\Btech\SOFTENG_7082\FInal-Project\teach-assist\tests\chat-flow.js:58:29)</failure>
+
+    
+    </testcase>
+  
+
+  
+
+    
+
+  
+    
+    <testcase
+      name="close" classname="auth-flow">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

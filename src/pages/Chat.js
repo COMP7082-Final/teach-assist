@@ -126,7 +126,7 @@ export default class Chat extends Component {
                     })}
                 </div>
                 {/*{# message form #}*/}
-                <form className="mx-3"  onSubmit={this.handleSubmit}>
+                <form className="chat-input mx-3"  onSubmit={this.handleSubmit}>
                     <textarea className="form-control" name="content" onChange={this.handleChange} value={this.state.content}/>
                     {this.state.error ? <p>{this.state.writeError}</p> : null}
                     <button type="submit" className="btnn btn-submit px-5 mt-4">Send</button>
